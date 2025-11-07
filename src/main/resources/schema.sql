@@ -1,8 +1,11 @@
+--CREATE TABLES
 CREATE TABLE IF NOT EXISTS users(
     id_user INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
     surname VARCHAR(150) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
+    email_token VARCHAR(200) UNIQUE, --Not valid for free database testing
+    email_valid TINYINT (1) DEFAULT 1, --default 1 for free database testing
     password VARCHAR(100) NOT NULL,
     registration_day DATE NOT NULL,
     study VARCHAR(5),
@@ -20,7 +23,7 @@ CREATE TABLE IF NOT EXISTS choose(
     PRIMARY KEY(id_user, id_topic),
     FOREIGN KEY(id_user) REFERENCES users(id_user) ON DELETE CASCADE,
     FOREIGN KEY(id_topic) REFERENCES topics(id_topic) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;  --greater compatibility with sql
 
 CREATE TABLE IF NOT EXISTS tests(
     id_test INT AUTO_INCREMENT PRIMARY KEY,
