@@ -1,4 +1,4 @@
-package com.aprobapp.aprobapp;
+package com.aprobapp.aprobapp.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
