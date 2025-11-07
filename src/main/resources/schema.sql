@@ -1,3 +1,4 @@
+--CREATE ALL TABLES AND RELATIONS
 CREATE TABLE IF NOT EXISTS users(
     id_user INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
@@ -6,7 +7,9 @@ CREATE TABLE IF NOT EXISTS users(
     password VARCHAR(100) NOT NULL,
     registration_day DATE NOT NULL,
     study VARCHAR(5),
-    root TINYINT(1) NOT NULL DEFAULT 0
+    root TINYINT(1) NOT NULL DEFAULT 0,
+    email_token VARCHAR(200) UNIQUE,  --Not valid for free databases
+    email:valid TINYINT(1) DEFAULT 1  --default assign (1) for free databases
 );
 
 CREATE TABLE IF NOT EXISTS topics(
@@ -20,7 +23,7 @@ CREATE TABLE IF NOT EXISTS choose(
     PRIMARY KEY(id_user, id_topic),
     FOREIGN KEY(id_user) REFERENCES users(id_user) ON DELETE CASCADE,
     FOREIGN KEY(id_topic) REFERENCES topics(id_topic) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;  --better compatibility with mysql database
 
 CREATE TABLE IF NOT EXISTS tests(
     id_test INT AUTO_INCREMENT PRIMARY KEY,
