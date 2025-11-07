@@ -1,2 +1,2 @@
-# aprobApp
-Prepare to pass the final exams
+# API_aprobApp
+API-DB connection
