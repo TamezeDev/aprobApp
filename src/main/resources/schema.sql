@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS users(
     study VARCHAR(5),
     root TINYINT(1) NOT NULL DEFAULT 0,
     email_token VARCHAR(200) UNIQUE,  --Not valid for free databases
-    email:valid TINYINT(1) DEFAULT 1  --default assign (1) for free databases
+    email_valid TINYINT(1) DEFAULT 1  --default assign (1) for free databases
 );
 
 CREATE TABLE IF NOT EXISTS topics(

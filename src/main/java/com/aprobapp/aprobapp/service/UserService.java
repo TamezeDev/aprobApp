@@ -1,11 +1,13 @@
 package com.aprobapp.aprobapp.service;
 
 import com.aprobapp.aprobapp.model.User;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 @Service
@@ -66,5 +68,28 @@ public class UserService {
         // Al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo
         String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&._#()\\-])[A-Za-z\\d@$!%*?&._#()\\-]{8,}$";
         return Pattern.matches(regex, password);
+    }
+    // GET ROOT VALUE (devuelve el valor numérico del campo root)
+    public int getRootValue(String email) {
+        String sql = "SELECT root FROM users WHERE email = ?";
+        List<Integer> result = jdbcTemplate.query(sql, (rs, rowNum) -> rs.getInt("root"), email);
+        if (result.isEmpty()) return 0;
+        return result.get(0);
+    }
+
+    //GET SINGLE USER DATA BY EMAIL
+    public Map<String, Object> getUserData(String email) {
+        String sql = "SELECT first_name, surname, email, study FROM users WHERE email = ?";
+        try {
+            return jdbcTemplate.queryForMap(sql, email);
+        } catch (EmptyResultDataAccessException e) {
+            return null; // no se encontró usuario
+        }
+    }
+
+    // CHECK IF USER IS ROOT
+    public boolean isRootUser(String email) {
+        int rootValue = getRootValue(email);
+        return rootValue == 1; // 1 significa que el usuario es root
     }
 }
