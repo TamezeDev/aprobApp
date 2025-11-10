@@ -8,7 +8,7 @@ public class User {
     private final String surName;
     private final String email;
     private final String password;
-    private final Date registrationDay;
+    private final Date registerDay;
     private final String study;
     private final int root;
 
@@ -19,7 +19,7 @@ public class User {
         this.surName = surName;
         this.email = email;
         this.password = password;
-        this.registrationDay = registrationDay;
+        this.registerDay = registrationDay;
         this.study = study;
         this.root = root;
     }
